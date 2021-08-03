@@ -1,3 +1,8 @@
+from .models import Sales
+from import_export.admin import ImportExportModelAdmin
 from django.contrib import admin
 
-# Register your models here.
+
+@admin.register(Sales)
+class SalesAdmin(ImportExportModelAdmin):
+    pass
