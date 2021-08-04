@@ -1,3 +1,8 @@
+from .models import Purchase
+from import_export.admin import ImportExportModelAdmin
 from django.contrib import admin
 
-# Register your models here.
+
+@admin.register(Purchase)
+class PurchaseAdmin(ImportExportModelAdmin):
+    pass
