@@ -23,7 +23,7 @@ class SalesViewSet(viewsets.ModelViewSet):
       code = request.GET.get('client',None)
       codeproduct = request.GET.get('product',None)
       if code == None and codeproduct == None:
-        return Response(data={'message': 'Send correct values'})
+        queryset = Sales.objects.all()
       if code != None:
         queryset = Sales.objects.all().filter(codigo_cliente=code)
       if codeproduct != None:

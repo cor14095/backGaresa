@@ -19,4 +19,5 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/sales/', include(('venta.urls', 'venta'), namespace='venta')),
+    path('api/v1/client/', include(('cliente.urls', 'cliente'), namespace='cliente')),
 ]
