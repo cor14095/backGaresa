@@ -14,7 +14,7 @@ class SalesDetailSerializer(serializers.ModelSerializer):
 class SalesGenericSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sales
-        fields = ['id','codigo_cliente','nombre_cliente', 'codigo_producto','cantidad_unidad','venta_neta']
+        fields = ['id','codigo_cliente','nombre_cliente', 'codigo_producto','cantidad_unidad','venta_neta','fecha_documento']
     def to_representation(self, value):
         repr_dict = super(SalesGenericSerializer, self).to_representation(value)
         return OrderedDict((k, v) for k, v in repr_dict.items()

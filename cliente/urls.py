@@ -1,10 +1,9 @@
 from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
-from .views import SalesViewSet
+from .views import ClientViewSet
 
 urlpatterns = [
-    path('', SalesViewSet.as_view({'get': 'listcode'})),
-    path('forecast/', SalesViewSet.as_view({'get': 'forecast'})),
+    path('', ClientViewSet.as_view({'get': 'list'})),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
