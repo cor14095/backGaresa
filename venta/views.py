@@ -41,10 +41,18 @@ class SalesViewSet(viewsets.ModelViewSet):
   def forecast(self, request):
     code = request.GET.get('client',None)
     codeproduct = request.GET.get('product',None)
+    week = request.GET.get('week',None)
+    year = request.GET.get('year',None)
     date = datetime.date.today()
-    year = date.year
-    start_year = year - 6
-    week = date.isocalendar()[1]
+    if year == None:
+      year = date.year
+    else:
+      year = int(year)
+    start_year = 2015
+    if week == None:
+      week = date.isocalendar()[1]
+    else:
+      week = int(week)
     data = []
     queryset = Sales.objects.all()
     if code != None:
@@ -112,15 +120,23 @@ class SalesViewSet(viewsets.ModelViewSet):
       for x in range(7):
         dayIdx = x + 1
         day = next((item for item in week_data if item["day"] == dayIdx), None)
-        print(day)
         dayData[x]['venta_neta'] += day['venta_neta'] if day else 0
         dayData[x]['cantidad_unidad'] += day['cantidad_unidad'] if day else 0
     data_length = len(dayData)
     avg_data = []
+    #avg_week_sale = 0
+    #avg_week_unit = 0
+    factor = 3.33
     for avg in dayData:
+      #avg_week_sale += avg['venta_neta']/data_length * factor
+      #avg_week_unit += avg['cantidad_unidad']/data_length * factor
       avg_data.append({
-        "venta_neta": avg['venta_neta']/data_length,
-        "cantidad_unidad" : avg['cantidad_unidad']/data_length
+        "venta_neta": avg['venta_neta']/data_length * factor,
+        "cantidad_unidad" : avg['cantidad_unidad']/data_length * factor
       })
+    #avg_data.append({
+    #    "venta_neta": avg_week_sale,
+    #    "cantidad_unidad" : avg_week_unit,
+    #  })
     
     return Response(status = status.HTTP_200_OK,data=avg_data)
